@@ -20,7 +20,7 @@ st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon
 # For logs
 pd.set_option('future.no_silent_downcasting', True)
 
-new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
+new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 30px;">Baseball Hall of Fame Ballot Analysis</p>'
 st.markdown(new_title, unsafe_allow_html=True)
 st.write('To change voters/years, tap the >> in the upper left of the page')
 
