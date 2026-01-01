@@ -162,7 +162,7 @@ def ballot_chart(voter, year):
     voter_df = tracker_years.loc[(tracker_years['Voter']==voter) & (tracker_years['year']==year)].reset_index(drop=True)
     chart_df = voter_df[player_options].loc[:, (voter_df[player_options].abs() > 0.05).all()].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
     
-    fig = plt.figure(figsize=(8,6))
+    fig = plt.figure(figsize=(10,6))
     # # Divide card into tiles
     grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[3,2])
     # fig, ax = plt.subplots(figsize=(8,6))
@@ -193,7 +193,7 @@ def ballot_chart(voter, year):
         ax1.text(vaa + (0.02 if vaa >0 else -0.02),
                  ax1.get_yticklabels().index(player),
                  player.get_text(),
-                 fontsize=10,
+                 # fontsize=10,
                  va='center',
                  ha='left' if vaa >0 else 'right',
                  color='w')
