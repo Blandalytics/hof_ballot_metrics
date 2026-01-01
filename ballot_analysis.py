@@ -264,7 +264,7 @@ def ballot_chart(voter, year):
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
     grid.tight_layout(fig)
-    st.pyplot(fig,width='content')
+    st.pyplot(fig,width=800)
 
 pad1, col1, pad2 = st.columns([0.1,0.8,0.1])
 with col1:
