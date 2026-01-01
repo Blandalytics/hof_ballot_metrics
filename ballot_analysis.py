@@ -6,6 +6,7 @@ import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import random
 import seaborn as sns
 import urllib
 
@@ -84,7 +85,15 @@ gid_dict = {
 update_text = pd.read_csv(f'https://docs.google.com/spreadsheets/d/1i7ZOAxOPnpCkCiiJ-bxnjWZ2vxFhBThz4C70ZpOAhW8/export?gid=0&format=csv').fillna(0).columns.values[0]
 update_text = update_text[update_text.find('\n')+1:update_text.find(' at')]
 
-@st.cache_data(ttl=3600, show_spinner='Loading Ballots')
+loading_texts = [
+    "Figuring out why Ichiro wasn't unanimous",
+    'Determining which voter hates your team the most',
+    'Finding the optimal balance between eye test and numbers',
+    'Sorting by word count in ballot announcements',
+    'Finding the optimal amount of "Fame" for a Hall with set dimensions'
+]
+
+@st.cache_data(ttl=3600, show_spinner=random.choice(loading_texts))
 def load_data(sheet_id_dict):
     year_min = min(gid_dict.keys())
     year_max = max(gid_dict.keys())
