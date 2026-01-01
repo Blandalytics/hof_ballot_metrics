@@ -130,18 +130,7 @@ tracker_years = load_data(gid_dict)
 if 'year' not in ss:
     ss['year'] = max(gid_dict.keys())
 if 'voter' not in ss:
-    ss['voter'] = (
-        tracker_years
-        .groupby('Voter')
-        .agg(
-          total_votes=('Total Votes', 'count'),
-          vote_orthodoxy=('vote_orthodoxy_cohort', 'mean'),
-        )
-        .sort_values(['total_votes','vote_orthodoxy'],
-                     ascending=[False,False])
-        .head(1)
-        .index[0]
-    )
+    ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
 
 with st.sidebar:
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
