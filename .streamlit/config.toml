@@ -12,4 +12,4 @@ textColor = '#ffffff'
 [theme.sidebar]
 primaryColor = "#0076B8"
 backgroundColor = "#32344A"
-secondaryBackgroundColor = "292C42"
+secondaryBackgroundColor = "#292C42"
