@@ -152,7 +152,7 @@ with st.sidebar:
                  voter_list,
                  key='voter')
   
-    years_list = tracker_years.loc[tracker_years['Voter']==ss['voter'],'year'].unique()
+    years_list = tracker_years.loc[tracker_years['Voter']==ss['voter'],'year'].sort_values(ascending=False).unique()
     st.selectbox('Select a ballot year',
                  years_list,
                  key='year')
