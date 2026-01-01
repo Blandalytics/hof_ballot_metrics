@@ -16,8 +16,8 @@ from scipy import stats
 st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',
                    layout="wide"
                   )
-new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
-st.markdown(new_title, unsafe_allow_html=True)
+# new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
+# st.markdown(new_title, unsafe_allow_html=True)
 
 def load_logo():
     logo_loc = 'https://github.com/Blandalytics/PLV_viz/blob/main/data/PL-text-wht.png?raw=true'
@@ -138,6 +138,8 @@ with st.sidebar:
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
     with col1:
         st.image(letter_logo)
+    new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 24px;">Baseball Hall of Fame Ballot Analysis</p>'
+    st.markdown(new_title, unsafe_allow_html=True)
     voter_list = tracker_years['Voter'].sort_values().unique()
     st.selectbox('Select a voter',
                  voter_list,
@@ -259,7 +261,7 @@ def ballot_chart(voter, year):
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
     grid.tight_layout(fig)
-    st.pyplot(fig,width='content')
+    st.pyplot(fig)
 
 pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
 with col1:
