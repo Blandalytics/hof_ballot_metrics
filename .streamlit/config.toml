@@ -4,7 +4,7 @@ enableStaticServing = true
 [theme]
 base = 'dark'
 font = "Alexandria:https://fonts.googleapis.com/css2?family=Alexandria:ital,wght@0,400..700;1,400..700&display=swap"
-primaryColor = "#0076B8"
+primaryColor = "#72CBFD"
 backgroundColor = "#292C42"
 dataframeBorderColor = "#32344a"
 dataframeHeaderBackgroundColor = "#32344A"
