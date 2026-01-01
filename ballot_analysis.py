@@ -1,13 +1,17 @@
 import streamlit as st
 from streamlit import session_state as ss
-import pandas as pd
-import numpy as np
-import seaborn as sns
+
 import matplotlib.colors as colors
 import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
-from scipy import stats
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import urllib
+
+from PIL import Image
 from pyfonts import set_default_font, load_google_font
+from scipy import stats
 
 st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',layout="wide")
 new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
