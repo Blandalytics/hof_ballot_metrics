@@ -17,11 +17,12 @@ from scipy import stats
 st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',
                    layout="wide"
                   )
-st.write('To change voters/years, tap the >> in the upper left of the page')
 # For logs
 pd.set_option('future.no_silent_downcasting', True)
-# new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
-# st.markdown(new_title, unsafe_allow_html=True)
+
+new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
+st.markdown(new_title, unsafe_allow_html=True)
+st.write('To change voters/years, tap the >> in the upper left of the page')
 
 def load_logo():
     logo_loc = 'https://github.com/Blandalytics/PLV_viz/blob/main/data/PL-text-wht.png?raw=true'
@@ -80,7 +81,7 @@ gid_dict = {
     2017:'390426574',
 }
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=3600, show_spinner='Loading Ballots')
 def load_data(sheet_id_dict):
     year_min = min(gid_dict.keys())
     year_max = max(gid_dict.keys())
@@ -142,8 +143,6 @@ with st.sidebar:
     pad1, col1, pad2 = st.columns([0.3,0.4,0.3])
     with col1:
         st.image(letter_logo)
-    new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 20px;">Baseball Hall of Fame Ballot Analysis</p>'
-    st.markdown(new_title, unsafe_allow_html=True)
     voter_list = tracker_years['Voter'].sort_values().unique()
     st.selectbox('Select a voter',
                  voter_list,
@@ -267,6 +266,6 @@ def ballot_chart(voter, year):
     grid.tight_layout(fig)
     st.pyplot(fig)
 
-pad1, col1, pad2 = st.columns([0,1,0],width=600)
+pad1, col1, pad2 = st.columns([0.01,1,0.01],width=600)
 with col1:
     ballot_chart(ss['voter'], ss['year'])
