@@ -263,7 +263,7 @@ def ballot_chart(voter, year):
     pl_ax.axis('off')
     
     fig.text(0.8,-0.025,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
-    fig.text(0.2,-0.025,f'bbhof-ballot-metrics.streamlit.app\nLast Updated: {update_text}',fontsize=10,color=pl_line_color,ha='center',va='center')
+    fig.text(0.25,-0.025,f'bbhof-ballot-metrics.streamlit.app\nLast Updated: {update_text}',fontsize=10,color=pl_line_color,ha='center',va='center')
     
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
