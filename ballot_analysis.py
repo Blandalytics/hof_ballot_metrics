@@ -143,23 +143,19 @@ if 'voter' not in ss:
         .index[0]
     )
 
-def update_selections():
-    st.session_state.count += st.session_state.increment_value
-    st.session_state.last_updated = st.session_state.update_time
-
 with st.sidebar:
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
     with col1:
         st.image(letter_logo)
     voter_list = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sort_values().unique()
-    ss['voter'] = st.selectbox('Select a voter',
-                               voter_list,
-                               key='voter')
+    st.selectbox('Select a voter',
+                 voter_list,
+                 key='voter')
   
     years_list = tracker_years.loc[tracker_years['Voter']==ss['voter'],'year'].unique()
-    ss['year'] = st.selectbox('Select a ballot year',
-                               years_list,
-                               key='year')
+    st.selectbox('Select a ballot year',
+                 years_list,
+                 key='year')
 
 voter_df = tracker_years.loc[(tracker_years['Voter']==voter_check) & (tracker_years['year']==year_check)].reset_index(drop=True)
 player_options = [x for x in tracker_years.loc[tracker_years['year']==year_check].columns.values[1:-4] if x[-5:]==f'_{year_check}']
