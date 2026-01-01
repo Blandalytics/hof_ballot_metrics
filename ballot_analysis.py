@@ -135,7 +135,7 @@ if 'voter' not in ss:
         .groupby('Voter')
         .agg(
           total_votes=('Total Votes', 'count'),
-          vote_orthodoxy=('vote_orthodoxy', 'mean'),
+          vote_orthodoxy=('vote_orthodoxy_cohort', 'mean'),
         )
         .sort_values(['total_votes','vote_orthodoxy'],
                      ascending=[False,False])
