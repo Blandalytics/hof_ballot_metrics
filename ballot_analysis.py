@@ -190,11 +190,12 @@ def ballot_chart(voter, year):
     for player in ax1.get_yticklabels():
         vaa = chart_df.loc[chart_df['Player']==player.get_text(),'Votes Above Average'].item()
         ax1.text(vaa + (0.02 if vaa >0 else -0.02),
-                ax1.get_yticklabels().index(player),
-                player.get_text(),
-                va='center',
-                ha='left' if vaa >0 else 'right',
-                color='w')
+                 ax1.get_yticklabels().index(player),
+                 player.get_text(),
+                 fontsize=10,
+                 va='center',
+                 ha='left' if vaa >0 else 'right',
+                 color='w')
     ax1.yaxis.set_visible(False)
     ax1.set_xticks([-1,-0.5,0,0.5,1])
     ax1.set(xlabel='',
