@@ -14,7 +14,7 @@ from pyfonts import set_default_font, load_google_font
 from scipy import stats
 
 st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',
-                   # layout="wide"
+                   layout="wide"
                   )
 new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
 st.markdown(new_title, unsafe_allow_html=True)
@@ -248,12 +248,13 @@ def ballot_chart(voter, year):
            xlabel='')
     ax4.set_title(f'Vote Orthodoxy (Adjusted): {orth_adj_val:.0f}',color=pl_text,fontsize=16,x=50/x_adjust,y=1.01)
     
-    # # Add PL logo
-    pl_ax = fig.add_axes([0.425,-.1,0.15,0.15], anchor='SE', zorder=1)
+    # Add PL logo
+    pl_ax = fig.add_axes([0.4,-.08,0.2,0.2], anchor='SE', zorder=1)
     pl_ax.imshow(logo)
     pl_ax.axis('off')
     
-    fig.text(0.8,-0.05,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
+    fig.text(0.8,-0.025,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
+
     
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
