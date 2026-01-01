@@ -255,7 +255,7 @@ def ballot_chart(voter, year):
     ax4.set_title(f'Vote Orthodoxy (Adjusted): {orth_adj_val:.0f}',color=pl_text,fontsize=16,x=50/x_adjust,y=1.01)
     
     # Add PL logo
-    pl_ax = fig.add_axes([0.4,-.08,0.2,0.2], anchor='SE', zorder=1)
+    pl_ax = fig.add_axes([0.4,-.1,0.2,0.2], anchor='SE', zorder=1)
     pl_ax.imshow(logo)
     pl_ax.axis('off')
     
