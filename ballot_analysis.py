@@ -13,9 +13,12 @@ from PIL import Image
 from pyfonts import set_default_font, load_google_font
 from scipy import stats
 
+
 st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',
                    layout="wide"
                   )
+# For logs
+pd.set_option('future.no_silent_downcasting', True)
 # new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
 # st.markdown(new_title, unsafe_allow_html=True)
 
@@ -158,9 +161,9 @@ def ballot_chart(voter, year):
     voter_df = tracker_years.loc[(tracker_years['Voter']==voter) & (tracker_years['year']==year)].reset_index(drop=True)
     chart_df = voter_df[player_options].loc[:, (voter_df[player_options].abs() > 0.05).all()].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
     
-    fig = plt.figure(figsize=(10,6))
+    fig = plt.figure(figsize=(10,8))
     # # Divide card into tiles
-    grid = plt.GridSpec(3, 2,hspace=1,wspace=0,width_ratios=[3,2])
+    grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[3,2])
     # fig, ax = plt.subplots(figsize=(8,6))
     ax1 = plt.subplot(grid[:, 0])
     hue_norm = colors.CenteredNorm(0,1)
@@ -256,13 +259,10 @@ def ballot_chart(voter, year):
     pl_ax.axis('off')
     
     fig.text(0.8,-0.025,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
-
     
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
     grid.tight_layout(fig)
     st.pyplot(fig)
 
-pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
-with col1:
-    ballot_chart(ss['voter'], ss['year'])
+ballot_chart(ss['voter'], ss['year'])
