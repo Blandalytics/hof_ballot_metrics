@@ -142,18 +142,22 @@ if 'voter' not in ss:
         .head(1)
         .index[0]
     )
-  
+
+def update_selections():
+    st.session_state.count += st.session_state.increment_value
+    st.session_state.last_updated = st.session_state.update_time
+
 with st.sidebar:
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
     with col1:
         st.image(letter_logo)
     voter_list = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sort_values().unique()
-    voter_check = st.selectbox('Select a voter',
+    ss['voter'] = st.selectbox('Select a voter',
                                voter_list,
                                key='voter')
   
     years_list = tracker_years.loc[tracker_years['Voter']==ss['voter'],'year'].unique()
-    year_check = st.selectbox('Select a ballot year',
+    ss['year'] = st.selectbox('Select a ballot year',
                                years_list,
                                key='year')
 
@@ -268,4 +272,4 @@ def ballot_chart(voter, year):
     grid.tight_layout(fig)
     st.pyplot(fig)
 
-ballot_chart(voter_check, year_check)
+ballot_chart(ss['voter'], ss['year'])
