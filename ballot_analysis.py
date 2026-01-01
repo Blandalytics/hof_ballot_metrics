@@ -13,7 +13,9 @@ from PIL import Image
 from pyfonts import set_default_font, load_google_font
 from scipy import stats
 
-st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',layout="wide")
+st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',
+                   # layout="wide"
+                  )
 new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
 st.markdown(new_title, unsafe_allow_html=True)
 
@@ -258,4 +260,6 @@ def ballot_chart(voter, year):
     grid.tight_layout(fig)
     st.pyplot(fig,width='content')
 
-ballot_chart(ss['voter'], ss['year'])
+pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
+with col1:
+    ballot_chart(ss['voter'], ss['year'])
