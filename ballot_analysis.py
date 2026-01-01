@@ -157,18 +157,19 @@ with st.sidebar:
                  years_list,
                  key='year')
 
-voter_df = tracker_years.loc[(tracker_years['Voter']==voter_check) & (tracker_years['year']==year_check)].reset_index(drop=True)
-player_options = [x for x in tracker_years.loc[tracker_years['year']==year_check].columns.values[1:-4] if x[-5:]==f'_{year_check}']
-voted_players = [x for x in tracker_years.loc[tracker_years['year']==year_check].columns.values[1:-4] if f'_{year_check}_avg' in x]
+player_options = [x for x in tracker_years.loc[tracker_years['year']==ss['year']].columns.values[1:-4] if x[-5:]==f'_{ss['year']}']
+voted_players = [x for x in tracker_years.loc[tracker_years['year']==ss['year']].columns.values[1:-4] if f'_{ss['year']}_avg' in x]
 unanimous_players = [x[:-9] for x in voted_players if tracker_years[x].mean()==1]
 
 def ballot_chart(voter, year):
+    voter_df = tracker_years.loc[(tracker_years['Voter']==voter) & (tracker_years['year']==year)].reset_index(drop=True)
+    chart_df = voter_df[player_options].loc[:, (voter_df[player_options].abs() > 0.05).all()].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
+    
     fig = plt.figure(figsize=(10,6))
     # # Divide card into tiles
     grid = plt.GridSpec(3, 2,hspace=1,wspace=0,width_ratios=[3,2])
     # fig, ax = plt.subplots(figsize=(8,6))
     ax1 = plt.subplot(grid[:, 0])
-    chart_df = voter_df[player_options].loc[:, (voter_df[player_options].abs() > 0.05).all()].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
     hue_norm = colors.CenteredNorm(0,1)
     sns.barplot(chart_df.sort_values('Votes Above Average',ascending=False),
                 y='Player',
@@ -263,7 +264,7 @@ def ballot_chart(voter, year):
     
     fig.text(0.8,-0.05,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
     
-    fig.suptitle(f"{voter_check}'s {year_check} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
+    fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
     grid.tight_layout(fig)
     st.pyplot(fig)
