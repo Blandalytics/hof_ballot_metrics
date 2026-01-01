@@ -81,6 +81,9 @@ gid_dict = {
     2017:'390426574',
 }
 
+update_text = pd.read_csv(f'https://docs.google.com/spreadsheets/d/1i7ZOAxOPnpCkCiiJ-bxnjWZ2vxFhBThz4C70ZpOAhW8/export?gid=0&format=csv').fillna(0).columns.values[0]
+update_text = update_text[update_text.find('\n')+1:update_text.find(' at')]
+
 @st.cache_data(ttl=3600, show_spinner='Loading Ballots')
 def load_data(sheet_id_dict):
     year_min = min(gid_dict.keys())
@@ -260,7 +263,7 @@ def ballot_chart(voter, year):
     pl_ax.axis('off')
     
     fig.text(0.8,-0.025,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
-    fig.text(0.2,-0.025,'bbhof-ballot-metrics.streamlit.app',fontsize=10,color=pl_line_color,ha='center',va='center')
+    fig.text(0.2,-0.025,f'bbhof-ballot-metrics.streamlit.app\nLast Updated: {update_text}',fontsize=10,color=pl_line_color,ha='center',va='center')
     
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
