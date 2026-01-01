@@ -288,3 +288,10 @@ st.markdown("""
     - :primary[**Vote Orthodoxy**]: The average distance between a voter's ballot and the average of all ballots that year. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
     - :primary[**Vote Orthodoxy (Adjusted)**]: The average distance between a voter's ballot and the average of ballots that voted for the same number of players that the voter did. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
     """)
+
+st.markdown("""
+:primary[**Vote Stinginess**] seems to be a consistent trait within voters, while :primary[**Vote Orthodoxy**] (with or without adjusting) is more variable year-to-year. :primary[**Vote Orthodoxy**] peaks around a :primary[**Vote Stinginess**] of 40.
+""")
+st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess.png?raw=true')))
+st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_orthodoxy.png?raw=true')))
+st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess_v_orthodoxy.png?raw=true')))
