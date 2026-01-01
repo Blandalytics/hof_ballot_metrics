@@ -17,6 +17,7 @@ from scipy import stats
 st.set_page_config(page_title='Baseball Hall of Fame Ballot Analysis', page_icon='⚾',
                    layout="wide"
                   )
+st.write('To change voters/years, tap the >> in the upper left of the page')
 # For logs
 pd.set_option('future.no_silent_downcasting', True)
 # new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 42px;">Baseball Hall of Fame Ballot Analysis</p>'
@@ -138,10 +139,10 @@ if 'voter' not in ss:
     ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
 
 with st.sidebar:
-    pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
+    pad1, col1, pad2 = st.columns([0.3,0.4,0.3])
     with col1:
         st.image(letter_logo)
-    new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 24px;">Baseball Hall of Fame Ballot Analysis</p>'
+    new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 20px;">Baseball Hall of Fame Ballot Analysis</p>'
     st.markdown(new_title, unsafe_allow_html=True)
     voter_list = tracker_years['Voter'].sort_values().unique()
     st.selectbox('Select a voter',
