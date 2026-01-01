@@ -283,8 +283,8 @@ pad1, col1, pad2 = st.columns([0.01,1,0.01],width=700)
 with col1:
     ballot_chart(ss['voter'], ss['year'])
 st.markdown("""
-    - _**Votes Above Average**_: Voter's decision to vote for a player (1) or not vote for a player (0), minus the percent of ballots that player was on.
-    - _**Vote Stinginess**_: Average # of players voted that year - the # of players voted for by that voter that year. Scaled 0 (Voted for the most players, relative to a year's average) to 100 (Voted for the fewest players, relative to a year's average).
-    - _**Vote Orthodoxy**_: The average distance between a voter's ballot and the average of all ballots that year. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
-    - _**Vote Orthodoxy (Adjusted)**_: The average distance between a voter's ballot and the average of ballots that voted for the same number of players that the voter did. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
+    - :primary[**Votes Above Average**]: Voter's decision to vote for a player (1) or not vote for a player (0), minus the percent of ballots that player was on.
+    - :primary[**Vote Stinginess**]: Average # of players voted that year - the # of players voted for by that voter that year. Scaled 0 (Voted for the most players, relative to a year's average) to 100 (Voted for the fewest players, relative to a year's average).
+    - :primary[**Vote Orthodoxy**]: The average distance between a voter's ballot and the average of all ballots that year. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
+    - :primary[**Vote Orthodoxy (Adjusted)**]: The average distance between a voter's ballot and the average of ballots that voted for the same number of players that the voter did. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
     """)
