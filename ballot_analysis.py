@@ -140,7 +140,7 @@ if 'voter' not in ss:
     ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
 
 with st.sidebar:
-    pad1, col1, pad2 = st.columns([0.3,0.4,0.3])
+    pad1, col1, pad2 = st.columns([0.1,0.8,0.1])
     with col1:
         st.image(letter_logo)
     voter_list = tracker_years['Voter'].sort_values().unique()
