@@ -266,6 +266,6 @@ def ballot_chart(voter, year):
     grid.tight_layout(fig)
     st.pyplot(fig)
 
-pad1, col1, pad2 = st.columns([0.01,1,0.01],width=600)
+pad1, col1, pad2 = st.columns([0.01,1,0.01],width=800)
 with col1:
     ballot_chart(ss['voter'], ss['year'])
