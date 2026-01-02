@@ -290,6 +290,8 @@ st.markdown("""
     """)
 
 st.markdown("""
+
+
 :primary[**Vote Stinginess**] seems to be a consistent trait within voters, while :primary[**Vote Orthodoxy**] (with or without adjusting) is more variable year-to-year.
 """)
 col1, col2 = st.columns(2)
