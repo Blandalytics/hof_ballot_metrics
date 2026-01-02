@@ -282,6 +282,8 @@ def ballot_chart(voter, year):
 pad1, col1, pad2 = st.columns([0.01,1,0.01],width=700)
 with col1:
     ballot_chart(ss['voter'], ss['year'])
+definitions_header = '<p style="color:#72CBFD; font-weight: bold; font-size: 24px;">Definitions</p>'
+st.markdown(definitions_header, unsafe_allow_html=True)
 st.markdown("""
     - :primary[**Votes Above Average**]: Voter's decision to vote for a player (1) or not vote for a player (0), minus the percent of ballots that player was on.
     - :primary[**Vote Stinginess**]: Average # of players voted that year - the # of players voted for by that voter that year. Scaled 0 (Voted for the most players relative to a year's average, across the last 10 years) to 100 (Voted for the fewest players relative to a year's average, across the last 10 years).
@@ -290,6 +292,8 @@ st.markdown("""
     """)
 
 st.write()
+high_level_header = '<p style="color:#72CBFD; font-weight: bold; font-size: 24px;">Metrics Analysis</p>'
+st.markdown(high_level_header, unsafe_allow_html=True)
 st.markdown("""
 :primary[**Vote Stinginess**] seems to be a consistent trait within voters, while :primary[**Vote Orthodoxy**] (with or without adjusting) is more variable year-to-year.
 """)
@@ -298,6 +302,8 @@ with col1:
     st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess.png?raw=true')))
 with col2:
     st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_orthodoxy.png?raw=true')))
+
+st.write()
 st.markdown("""
 :primary[**Vote Orthodoxy**] peaks around a :primary[**Vote Stinginess**] of 40.
 """)
