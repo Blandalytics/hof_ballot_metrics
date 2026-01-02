@@ -290,8 +290,14 @@ st.markdown("""
     """)
 
 st.markdown("""
-:primary[**Vote Stinginess**] seems to be a consistent trait within voters, while :primary[**Vote Orthodoxy**] (with or without adjusting) is more variable year-to-year. :primary[**Vote Orthodoxy**] peaks around a :primary[**Vote Stinginess**] of 40.
+:primary[**Vote Stinginess**] seems to be a consistent trait within voters, while :primary[**Vote Orthodoxy**] (with or without adjusting) is more variable year-to-year.
 """)
-st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess.png?raw=true')))
-st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_orthodoxy.png?raw=true')))
+col1, col2 = st.columns(2)
+with col1:
+    st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess.png?raw=true')))
+with col2:
+    st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_orthodoxy.png?raw=true')))
+st.markdown("""
+:primary[**Vote Orthodoxy**] peaks around a :primary[**Vote Stinginess**] of 40.
+""")
 st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess_v_orthodoxy.png?raw=true')))
