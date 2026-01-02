@@ -171,8 +171,9 @@ unanimous_players = [x[:-4] for x in voted_players if tracker_years[x].mean()==1
 
 def ballot_chart(voter, year):
     voter_df = tracker_years.loc[(tracker_years['Voter']==voter) & (tracker_years['year']==year)].reset_index(drop=True)
-    chart_df = voter_df[[x for x in player_options if voter_df[x].abs().item() >= 0.05] + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
-    
+    voter_votes = [x for x in player_options if voter_df[x].item() >0]
+    big_misses = [x for x in player_options if voter_df[x].item() <= -0.05]
+    chart_df = voter_df[voter_votes + big_misses + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
     fig = plt.figure(figsize=(10,6))
     # # Divide card into tiles
     grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[3,2])
