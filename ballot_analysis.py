@@ -167,11 +167,11 @@ with st.sidebar:
 
 player_options = [x for x in tracker_years.loc[tracker_years['year']==ss['year']].columns.values[1:-4] if x[-5:]==f'_{ss['year']}']
 voted_players = [x for x in tracker_years.loc[tracker_years['year']==ss['year']].columns.values[1:-4] if f'_{ss['year']}_avg' in x]
-unanimous_players = [x[:-9] for x in voted_players if tracker_years[x].mean()==1]
+unanimous_players = [x[:-4] for x in voted_players if tracker_years[x].mean()==1]
 
 def ballot_chart(voter, year):
     voter_df = tracker_years.loc[(tracker_years['Voter']==voter) & (tracker_years['year']==year)].reset_index(drop=True)
-    chart_df = voter_df[player_options].loc[:, (voter_df[player_options].abs() > 0.05).all()].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
+    chart_df = voter_df[[x for x in player_options if voter_df[x].abs().item() >= 0.05] + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
     
     fig = plt.figure(figsize=(10,6))
     # # Divide card into tiles
@@ -192,21 +192,15 @@ def ballot_chart(voter, year):
     ax1.axvline(0,color=pl_line_color)
     ax1.axhline(-0.7,color=pl_line_color,xmin=1/8,xmax=7/8,linewidth=2)
     player_votes = voter_df['Total Votes'].item()
-    asterisk_text = '' if len(unanimous_players)==0 else '*'
-    ax1.text(1.5,-1,f'Voted For ({player_votes:.0f}{asterisk_text})',ha='right',color=pl_line_color)
+    ax1.text(1.5,-1,f'Voted For ({player_votes:.0f})',ha='right',color=pl_line_color)
     ax1.text(-1.5,-1,'Did Not Vote For',ha='left',color=pl_line_color)
-    if len(unanimous_players)>0:
-        ax1.text(0.25,chart_df.shape[0]-2,
-                 '*Unanimous Players\n(Public Ballots):\n- '+'- \n'.join(unanimous_players),
-                 color=pl_line_color,alpha=0.75)
     for player in ax1.get_yticklabels():
         vaa = chart_df.loc[chart_df['Player']==player.get_text(),'Votes Above Average'].item()
-        ax1.text(vaa + (0.02 if vaa >0 else -0.02),
+        ax1.text(vaa + (0.02 if vaa >=0 else -0.02),
                  ax1.get_yticklabels().index(player),
                  player.get_text(),
-                 # fontsize=10,
                  va='center',
-                 ha='left' if vaa >0 else 'right',
+                 ha='left' if vaa >=0 else 'right',
                  color='w')
     ax1.yaxis.set_visible(False)
     ax1.set_xticks([-1,-0.5,0,0.5,1])
