@@ -289,9 +289,8 @@ st.markdown("""
     - :primary[**Vote Orthodoxy (Adjusted)**]: The average distance between a voter's ballot and the average of ballots that voted for the same number of players that the voter did. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
     """)
 
+st.write()
 st.markdown("""
-
-
 :primary[**Vote Stinginess**] seems to be a consistent trait within voters, while :primary[**Vote Orthodoxy**] (with or without adjusting) is more variable year-to-year.
 """)
 col1, col2 = st.columns(2)
