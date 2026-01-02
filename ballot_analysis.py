@@ -259,7 +259,7 @@ def ballot_chart(voter, year):
     ax4.set_xticks([x*20 for x in range(6)])
     ax4.set(xlim=(-0.5,x_adjust),
            xlabel='')
-    ax4.set_title(f'Vote Orthodoxy (Adjusted): {orth_adj_val:.0f}'.replace('nan','None'),color=pl_text,fontsize=16 if player_votes != 0 else 14,x=50/x_adjust,y=1.01)
+    ax4.set_title(f'Vote Orthodoxy (Adjusted): {orth_adj_val:.0f}'.replace('nan','None'),color=pl_text,fontsize=16,x=50/x_adjust,y=1.01)
     
     # Add PL logo
     pl_ax = fig.add_axes([0.4,-.1,0.2,0.2], anchor='SE', zorder=1)
