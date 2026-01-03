@@ -286,6 +286,98 @@ st.markdown("""
     - :primary[**Vote Orthodoxy (Adjusted)**]: The average distance between a voter's ballot and the average of ballots that voted for the same number of players that the voter did. Scaled 0 (Furthest from the average) to 100 (Closest to the average).
     """)
 
+
+def stinginess_chart():
+    fig, ax = plt.subplots(figsize=(7,7))
+    sns.regplot(tracker_years.dropna(subset=['vote_stinginess','stinginess_y+1'])[['vote_stinginess','stinginess_y+1']].astype('float'),
+                x='vote_stinginess',
+                y='stinginess_y+1',
+                ci=None,
+                scatter_kws={'color':pl_text,'s':75,'alpha':0.2,'edgecolor':'w','linewidths':0.5},
+                line_kws={'color':pl_highlight}
+                )
+    
+    ax.set(xlabel='Vote Stinginess',
+           xlim=(-2,102),
+           ylim=(-2,102),
+           ylabel='Next-Year Vote Stinginess',
+          #  aspect=1
+           )
+    
+    r, p = stats.pearsonr(tracker_years.dropna(subset=['vote_stinginess','stinginess_y+1'])['vote_stinginess'].astype('float'),
+                          tracker_years.dropna(subset=['vote_stinginess','stinginess_y+1'])['stinginess_y+1'].astype('float'))
+    ax.text(10, 90, f'r^2 = {(r**2):.2f}', fontsize=14,
+            color='w')
+  
+    # Add PL logo
+    pl_ax = fig.add_axes([0.65,0.15,0.25,0.25], anchor='S', zorder=1)
+    pl_ax.imshow(logo)
+    pl_ax.axis('off')
+    
+    fig.suptitle(f'Year-Over-Year HoF Vote Stinginess\n{year_min}-{year_max}',color=pl_text,size=18,y=0.96)
+    sns.despine()
+    st.pyplot(fig,width='content')
+
+def orthodoxy_chart():
+    fig, ax = plt.subplots(figsize=(7,7))
+    sns.regplot(tracker_years.dropna(subset=['vote_orthodoxy','orthodoxy_y+1'])[['vote_orthodoxy','orthodoxy_y+1']].astype('float'),
+                x='vote_orthodoxy',
+                y='orthodoxy_y+1',
+                ci=None,
+                scatter_kws={'color':pl_text,'s':50,'alpha':0.2,'edgecolor':'w','linewidths':0.5},
+                line_kws={'color':pl_highlight}
+                )
+    
+    ax.set(xlabel='Vote Orthodoxy',
+           xlim=(-2,102),
+           ylim=(-2,102),
+           ylabel='Next-Year Vote Orthodoxy',
+           )
+    
+    r, p = stats.pearsonr(tracker_years.dropna(subset=['vote_orthodoxy','orthodoxy_y+1'])['vote_orthodoxy'].astype('float'),
+                          tracker_years.dropna(subset=['vote_orthodoxy','orthodoxy_y+1'])['orthodoxy_y+1'].astype('float'))
+    ax.text(10, 75, f'r^2 = {r**2:.2f}', fontsize=14,
+            color='w')
+    
+    # Add PL logo
+    pl_ax = fig.add_axes([0.65,0.15,0.25,0.25], anchor='S', zorder=1)
+    pl_ax.imshow(logo)
+    pl_ax.axis('off')
+    
+    fig.suptitle(f'Year-Over-Year HoF Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18,y=0.96)
+    sns.despine()
+    st.pyplot(fig,width='content')
+
+def stinginess_v_orthodoxy_chart():
+    fig, ax = plt.subplots(figsize=(7,7))
+    sns.regplot(tracker_years[['vote_stinginess','vote_orthodoxy']],
+                x='vote_stinginess',
+                y='vote_orthodoxy',
+                order=3,
+                ci=None,
+                scatter_kws={'color':pl_text,'s':50,'alpha':0.2,'edgecolor':'w','linewidths':0.5},
+                line_kws={'color':pl_highlight}
+                )
+    ax.text(90,50,'Trend',va='center',ha='center',color=pl_highlight,fontsize=12,
+            rotation=-45,
+            )
+    
+    ax.set(xlabel='Vote Stinginess',
+           xlim=(-2,102),
+           ylim=(-2,102),
+           ylabel='Vote Orthodoxy',
+          #  aspect=1
+           )
+        
+    # Add PL logo
+    pl_ax = fig.add_axes([0.65,0.15,0.25,0.25], anchor='S', zorder=1)
+    pl_ax.imshow(logo)
+    pl_ax.axis('off')
+    
+    fig.suptitle(f'Vote Stinginess vs Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18,y=0.96)
+    sns.despine()
+    st.pyplot(fig,width='content')
+
 st.write()
 high_level_header = '<p style="color:#72CBFD; font-weight: bold; font-size: 24px;">Metrics Analysis</p>'
 st.markdown(high_level_header, unsafe_allow_html=True)
@@ -294,12 +386,12 @@ st.markdown("""
 """)
 col1, col2 = st.columns(2)
 with col1:
-    st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess.png?raw=true')))
+    stinginess_chart()
 with col2:
-    st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_orthodoxy.png?raw=true')))
+    orthodoxy_chart()
 
 st.write()
 st.markdown("""
 :primary[**Vote Orthodoxy**] peaks around a :primary[**Vote Stinginess**] of 40.
 """)
-st.image(Image.open(urllib.request.urlopen('https://github.com/Blandalytics/hof_ballot_metrics/blob/main/hof_stinginess_v_orthodoxy.png?raw=true')))
+stinginess_v_orthodoxy_chart()
