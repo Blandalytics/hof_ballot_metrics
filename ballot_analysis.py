@@ -288,7 +288,7 @@ st.markdown("""
 
 
 def stinginess_chart():
-    fig, ax = plt.subplots(figsize=(7,7))
+    fig, ax = plt.subplots(figsize=(5,5))
     sns.regplot(tracker_years.dropna(subset=['vote_stinginess','stinginess_y+1'])[['vote_stinginess','stinginess_y+1']].astype('float'),
                 x='vote_stinginess',
                 y='stinginess_y+1',
@@ -319,7 +319,7 @@ def stinginess_chart():
     st.pyplot(fig,width='content')
 
 def orthodoxy_chart():
-    fig, ax = plt.subplots(figsize=(7,7))
+    fig, ax = plt.subplots(figsize=(5,5))
     sns.regplot(tracker_years.dropna(subset=['vote_orthodoxy','orthodoxy_y+1'])[['vote_orthodoxy','orthodoxy_y+1']].astype('float'),
                 x='vote_orthodoxy',
                 y='orthodoxy_y+1',
@@ -349,7 +349,7 @@ def orthodoxy_chart():
     st.pyplot(fig,width='content')
 
 def stinginess_v_orthodoxy_chart():
-    fig, ax = plt.subplots(figsize=(7,7))
+    fig, ax = plt.subplots(figsize=(5,5))
     sns.regplot(tracker_years[['vote_stinginess','vote_orthodoxy']],
                 x='vote_stinginess',
                 y='vote_orthodoxy',
