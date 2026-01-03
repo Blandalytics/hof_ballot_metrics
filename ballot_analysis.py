@@ -253,7 +253,7 @@ def ballot_chart(voter, year):
                 color=pl_line_color,
                 alpha=0.5,
                 ax=ax4)
-    orth_adj_val = voter_df['vote_orthodoxy_cohort'].item()
+    orth_adj_val = voter_df['vote_orthodoxy_cohort'].fillna(100).item()
     ax4.axvline(orth_adj_val,color=pl_highlight,linestyle='--',linewidth=2)
     ax4.yaxis.set_visible(False)
     ax4.set_xticks([x*20 for x in range(6)])
