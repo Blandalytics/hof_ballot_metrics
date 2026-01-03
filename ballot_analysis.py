@@ -174,7 +174,7 @@ def ballot_chart(voter, year):
     voter_votes = [x for x in player_options if voter_df[x].item() >0]
     big_misses = [x for x in player_options if voter_df[x].item() <= -0.05]
     chart_df = voter_df[voter_votes + big_misses + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
-    fig = plt.figure(figsize=(10,6))
+    fig = plt.figure(figsize=(14,8))
     # # Divide card into tiles
     grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[3,2])
     # fig, ax = plt.subplots(figsize=(8,6))
@@ -272,9 +272,9 @@ def ballot_chart(voter, year):
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
     grid.tight_layout(fig)
-    st.pyplot(fig)
+    st.pyplot(fig,width='content')
 
-pad1, col1, pad2 = st.columns([0.01,1,0.01],width=700)
+pad1, col1, pad2 = st.columns([0.125,0.75,0.125])
 with col1:
     ballot_chart(ss['voter'], ss['year'])
 definitions_header = '<p style="color:#72CBFD; font-weight: bold; font-size: 24px;">Definitions</p>'
