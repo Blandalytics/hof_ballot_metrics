@@ -141,13 +141,13 @@ def load_data(sheet_id_dict):
                                            tracker_years['vote_orthodoxy'].shift(-1),
                                            None)
     tracker_years['first_time_voter'] = np.where((tracker_years['year'].groupby(tracker_years['Voter']).transform('max')==year_max) & (tracker_years['year'].groupby(tracker_years['Voter']).transform('count')==1),1,0)
-    return tracker_years
+    return tracker_years, year_min, year_max
 
-tracker_years = load_data(gid_dict)
+tracker_years, year_min, year_max = load_data(gid_dict)
 
 # Intialize session state
 if 'year' not in ss:
-    ss['year'] = max(gid_dict.keys())
+    ss['year'] = year_max
 if 'voter' not in ss:
     ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
 
