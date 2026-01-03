@@ -174,7 +174,7 @@ def ballot_chart(voter, year):
     voter_votes = [x for x in player_options if voter_df[x].item() >0]
     big_misses = [x for x in player_options if voter_df[x].item() <= -0.05]
     chart_df = voter_df[voter_votes + big_misses + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
-    fig = plt.figure(figsize=(12,8))
+    fig = plt.figure(figsize=(10,8))
     # # Divide card into tiles
     grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[2,1])
     # fig, ax = plt.subplots(figsize=(8,6))
@@ -274,7 +274,7 @@ def ballot_chart(voter, year):
     grid.tight_layout(fig)
     st.pyplot(fig,width='content')
 
-pad1, col1, pad2 = st.columns([0.125,0.75,0.125])
+pad1, col1, pad2 = st.columns([1/6,2/3,1/6])
 with col1:
     ballot_chart(ss['voter'], ss['year'])
 definitions_header = '<p style="color:#72CBFD; font-weight: bold; font-size: 24px;">Definitions</p>'
