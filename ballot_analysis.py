@@ -314,7 +314,7 @@ def stinginess_chart():
     pl_ax.imshow(logo)
     pl_ax.axis('off')
     
-    fig.suptitle(f'Year-Over-Year HoF Vote Stinginess\n{year_min}-{year_max}',color=pl_text,size=18,y=0.96)
+    fig.suptitle(f'Year-Over-Year HoF Vote Stinginess\n{year_min}-{year_max}',color=pl_text,size=18)
     sns.despine()
     st.pyplot(fig,width='content')
 
@@ -344,7 +344,7 @@ def orthodoxy_chart():
     pl_ax.imshow(logo)
     pl_ax.axis('off')
     
-    fig.suptitle(f'Year-Over-Year HoF Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18,y=0.96)
+    fig.suptitle(f'Year-Over-Year HoF Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18)
     sns.despine()
     st.pyplot(fig,width='content')
 
@@ -374,7 +374,7 @@ def stinginess_v_orthodoxy_chart():
     pl_ax.imshow(logo)
     pl_ax.axis('off')
     
-    fig.suptitle(f'Vote Stinginess vs Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18,y=0.96)
+    fig.suptitle(f'Vote Stinginess vs Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18)
     sns.despine()
     st.pyplot(fig,width='content')
 
