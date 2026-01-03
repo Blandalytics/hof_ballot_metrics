@@ -174,7 +174,7 @@ def ballot_chart(voter, year):
     voter_votes = [x for x in player_options if voter_df[x].item() >0]
     big_misses = [x for x in player_options if voter_df[x].item() <= -0.05]
     chart_df = voter_df[voter_votes + big_misses + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
-    fig = plt.figure(figsize=(10,8))
+    fig = plt.figure(figsize=(12,8))
     # # Divide card into tiles
     grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[2,1])
     # fig, ax = plt.subplots(figsize=(8,6))
