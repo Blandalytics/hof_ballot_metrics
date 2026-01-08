@@ -4,6 +4,7 @@ from streamlit import session_state as ss
 import matplotlib.colors as colors
 import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
+import matplotlib.spines as spines
 import numpy as np
 import pandas as pd
 import random
@@ -313,7 +314,8 @@ def stinginess_chart():
     pl_ax = fig.add_axes([0.65,0.15,0.25,0.25], anchor='S', zorder=1)
     pl_ax.imshow(logo)
     pl_ax.axis('off')
-    
+
+    ax.spines[['left','bottom']].set_bounds(0,100)
     fig.suptitle(f'Year-Over-Year HoF Vote Stinginess\n{year_min}-{year_max}',color=pl_text,size=18)
     sns.despine()
     st.pyplot(fig,width='content')
@@ -343,7 +345,8 @@ def orthodoxy_chart():
     pl_ax = fig.add_axes([0.65,0.15,0.25,0.25], anchor='S', zorder=1)
     pl_ax.imshow(logo)
     pl_ax.axis('off')
-    
+  
+    ax.spines[['left','bottom']].set_bounds(0,100)
     fig.suptitle(f'Year-Over-Year HoF Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18)
     sns.despine()
     st.pyplot(fig,width='content')
@@ -373,7 +376,8 @@ def stinginess_v_orthodoxy_chart():
     pl_ax = fig.add_axes([0.65,0.15,0.25,0.25], anchor='S', zorder=1)
     pl_ax.imshow(logo)
     pl_ax.axis('off')
-    
+
+    ax.spines[['left','bottom']].set_bounds(0,100)
     fig.suptitle(f'Vote Stinginess vs Vote Orthodoxy\n{year_min}-{year_max}',color=pl_text,size=18)
     sns.despine()
     st.pyplot(fig,width='content')
