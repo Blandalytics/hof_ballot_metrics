@@ -208,6 +208,8 @@ with st.sidebar:
         pl_staff = st.checkbox("PL Staff?",value=False,
                                help="Analyze Pitcher List staff ballots",
                                on_change=population_change)
+    else:
+        pl_staff = False
     if pl_staff:
         if 'voter' not in ss:
             ss['voter'] = pl_tracker_years['Voter'].sample(1).item()
