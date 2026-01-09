@@ -195,8 +195,6 @@ def load_pl_data(tracker_years=tracker_years):
 # Intialize session state
 if 'year' not in ss:
     ss['year'] = year_max
-if 'voter' not in ss:
-    ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
 
 with st.sidebar:
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
@@ -207,8 +205,12 @@ with st.sidebar:
         pl_staff = st.checkbox("PL Staff?",value=False,
                                help="Analyze Pitcher List staff ballots")
     if pl_staff:
+        if 'voter' not in ss:
+            ss['voter'] = pl_tracker_years['Voter'].sample(1).item()
         voter_list = pl_tracker_years['Voter'].sort_values().unique()
     else:
+        if 'voter' not in ss:
+            ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
         voter_list = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sort_values().unique()
     st.selectbox('Select a voter',
                  voter_list,
