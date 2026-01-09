@@ -160,12 +160,12 @@ with st.sidebar:
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
     with col1:
         st.image(letter_logo)
-    voter_list = tracker_years['Voter'].sort_values().unique()
+    voter_list = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sort_values().unique()
     st.selectbox('Select a voter',
                  voter_list,
                  key='voter')
   
-    years_list = tracker_years.loc[tracker_years['Voter']==ss['voter'],'year'].sort_values(ascending=False).unique()
+    years_list = tracker_years['year'].sort_values(ascending=False).unique()
     st.selectbox('Select a ballot year',
                  years_list,
                  key='year')
