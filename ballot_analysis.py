@@ -153,6 +153,45 @@ def load_data(sheet_id_dict):
 
 tracker_years, year_min, year_max = load_data(gid_dict)
 
+def load_pl_data(tracker_years=tracker_years):
+    pl_tracker_years = pd.read_csv('https://docs.google.com/spreadsheets/d/1lvT4etgFmz89cjs-bej3GVSujOspw2qEbFx_JgZZDEU/export?gid=1456168000&format=csv').rename(columns={'Who are you':'Voter'}).dropna(subset=['Voter'])
+    pl_tracker_years['PL_Staff'] = 1
+    pl_nominees = pl_tracker_years['Who are you voting for? Pick up to 10'].str.split(', ').explode().unique()
+    pl_name_dict = {x:x for x in pl_nominees}
+    pl_name_dict.update({
+        'Carlos Beltran':'Carlos Beltrán',
+        'Alex Rodriguez':'Álex Rodríguez',
+        'Manny Ramirez':'Manny Ramírez'
+    })
+    inv_name_dict = {v: k for k, v in pl_name_dict.items()}
+    pl_nominees = [pl_name_dict[x] for x in pl_nominees]
+    nominees_2026 = [x for x in tracker_years.columns.values if '_2026' in x and '_avg' not in x]
+    for player in nominees_2026:
+        if player[:-5] in pl_name_dict.values():
+            pl_tracker_years[player] = np.where(pl_tracker_years['Who are you voting for? Pick up to 10'].str.contains(inv_name_dict[player[:-5]]),1,0)
+        else:
+            pl_tracker_years[player] = 0
+    pl_tracker_years['Total Votes'] = pl_tracker_years[nominees_2026].sum(axis=1)
+    for player in nominees_2026:
+        if player[:-5] in pl_name_dict.values():
+            pl_tracker_years[player] = np.where(pl_tracker_years['Who are you voting for? Pick up to 10'].str.contains(inv_name_dict[player[:-5]]),1,0) - abs(tracker_years[player].dropna().min())
+        else:
+            pl_tracker_years[player] = tracker_years[player].dropna().min()
+    
+    pl_tracker_years['raw_vote_stinginess'] = tracker_years.loc[tracker_years['year']==2026][[x+'_avg' for x in nominees_2026]].sum(axis=1).mean() - pl_tracker_years['Total Votes']
+    pl_tracker_years['vote_stinginess'] = pl_tracker_years['raw_vote_stinginess'].sub(tracker_years['raw_vote_stinginess'].min()).div(tracker_years['raw_vote_stinginess'].max() - tracker_years['raw_vote_stinginess'].min()).mul(100)
+    
+    pl_tracker_years['raw_vote_orthodoxy'] = pl_tracker_years[nominees_2026].abs().mean(axis=1)
+    pl_tracker_years['votes_orth_max'] = tracker_years.loc[tracker_years['year']==2026]['raw_vote_orthodoxy'].max()
+    pl_tracker_years['votes_orth_min'] = tracker_years.loc[tracker_years['year']==2026]['raw_vote_orthodoxy'].min()
+    pl_tracker_years['vote_orthodoxy'] = np.clip(pl_tracker_years['votes_orth_max'].sub(pl_tracker_years['raw_vote_orthodoxy']).div(pl_tracker_years['votes_orth_max'].sub(pl_tracker_years['votes_orth_min'])),0,1) * 100
+    
+    pl_tracker_years['votes_orth_max_cohort'] = pl_tracker_years['Total Votes'].map(tracker_years.loc[tracker_years['year']==2026].groupby('Total Votes')['raw_vote_orthodoxy'].max().to_dict())
+    pl_tracker_years['votes_orth_min_cohort'] = pl_tracker_years['Total Votes'].map(tracker_years.loc[tracker_years['year']==2026].groupby('Total Votes')['raw_vote_orthodoxy'].min().to_dict())
+    pl_tracker_years['vote_orthodoxy_cohort'] = np.clip(pl_tracker_years['votes_orth_max_cohort'].sub(pl_tracker_years['raw_vote_orthodoxy']).div(pl_tracker_years['votes_orth_max_cohort'].sub(pl_tracker_years['votes_orth_min_cohort'])),0,1) * 100
+
+    return pl_tracker_years
+
 # Intialize session state
 if 'year' not in ss:
     ss['year'] = year_max
@@ -160,10 +199,17 @@ if 'voter' not in ss:
     ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
 
 with st.sidebar:
+    if ss['year']==2026:
+        pl_tracker_years = load_pl_data()
+        pl_staff = st.checkbox("PL Staff?",value=False,
+                               help="Analyze Pitcher List staff ballots")
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
     with col1:
         st.image(letter_logo)
-    voter_list = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sort_values().unique()
+    if pl_staff:
+        voter_list = pl_tracker_years['Voter'].sort_values().unique()
+    else:
+        voter_list = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sort_values().unique()
     st.selectbox('Select a voter',
                  voter_list,
                  key='voter')
@@ -177,8 +223,13 @@ player_options = [x for x in tracker_years.loc[tracker_years['year']==ss['year']
 voted_players = [x for x in tracker_years.loc[tracker_years['year']==ss['year']].columns.values[1:-4] if f'_{ss['year']}_avg' in x]
 unanimous_players = [x[:-4] for x in voted_players if tracker_years[x].mean()==1]
 
-def ballot_chart(voter, year):
-    voter_df = tracker_years.loc[(tracker_years['Voter']==voter) & (tracker_years['year']==year)].reset_index(drop=True)
+def ballot_chart(voter, year,pl_staff=pl_staff):
+    if pl_staff:
+        staff_text = ' (PL Staff)'
+        voter_df = pl_tracker_years.loc[pl_tracker_years['Voter']==voter].reset_index(drop=True)
+    else:
+        staff_text = ''
+        voter_df = tracker_years.loc[(tracker_years['Voter']==voter) & (tracker_years['year']==year)].reset_index(drop=True)
     voter_votes = [x for x in player_options if voter_df[x].item() >0]
     big_misses = [x for x in player_options if voter_df[x].item() <= -0.05]
     chart_df = voter_df[voter_votes + big_misses + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
@@ -277,7 +328,7 @@ def ballot_chart(voter, year):
     fig.text(0.8,-0.025,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
     fig.text(0.25,-0.025,f'bbhof-ballot-metrics.streamlit.app\nLast Updated: {update_text}',fontsize=10,color=pl_line_color,ha='center',va='center')
     
-    fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics",fontsize=20,color=pl_highlight)
+    fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics{staff_text}",fontsize=20,color=pl_highlight)
     sns.despine(left=True,bottom=True)
     grid.tight_layout(fig)
     st.pyplot(fig,width='content')
