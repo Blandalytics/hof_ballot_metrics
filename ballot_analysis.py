@@ -403,6 +403,6 @@ with col2:
 
 st.write()
 st.markdown("""
-:primary[**Vote Orthodoxy**] peaks around a :primary[**Vote Stinginess**] of 45.
+:primary[**Vote Orthodoxy**] peaks around a :primary[**Vote Stinginess**] of 40.
 """)
 stinginess_v_orthodoxy_chart()
