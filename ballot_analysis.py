@@ -199,13 +199,13 @@ if 'voter' not in ss:
     ss['voter'] = tracker_years.loc[tracker_years['year']==ss['year'],'Voter'].sample(1).item()
 
 with st.sidebar:
+    pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
+    with col1:
+        st.image(letter_logo)
     if ss['year']==2026:
         pl_tracker_years = load_pl_data()
         pl_staff = st.checkbox("PL Staff?",value=False,
                                help="Analyze Pitcher List staff ballots")
-    pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
-    with col1:
-        st.image(letter_logo)
     if pl_staff:
         voter_list = pl_tracker_years['Voter'].sort_values().unique()
     else:
