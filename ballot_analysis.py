@@ -54,6 +54,10 @@ pl_highlight = '#F1C647'
 pl_highlight_gradient = ['#F1C647','#F5A05E']
 pl_highlight_cmap = sns.color_palette(f'blend:{pl_highlight_gradient[0]},{pl_highlight_gradient[1]}', as_cmap=True)
 
+color_min = '#4BBFDF'
+color_max = '#D96060'
+diverge_palette = sns.blend_palette([color_min,'w',color_max],as_cmap=True)
+
 sns.set_theme(
     style={
         'axes.edgecolor': pl_line_color,
@@ -186,7 +190,7 @@ def ballot_chart(voter, year):
                 x='Votes Above Average',
                 hue='Votes Above Average',
                 hue_norm=hue_norm,
-                palette='PuOr_r',
+                palette=diverge_palette,
                 # color=pl_line_color,
                 edgecolor=pl_line_color,
                 ax=ax1,
