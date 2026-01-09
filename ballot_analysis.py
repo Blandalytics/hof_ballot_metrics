@@ -330,8 +330,9 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
     pl_ax = fig.add_axes([0.4,-.1,0.2,0.2], anchor='SE', zorder=1)
     pl_ax.imshow(logo)
     pl_ax.axis('off')
-    
-    fig.text(0.8,-0.025,'Data: Ryan Thibodaux\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
+
+    carson_text = '' if staff_text=='' else '/Carson Picard'
+    fig.text(0.8,-0.025,f'Data: Ryan Thibodaux{carson_text}\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
     fig.text(0.25,-0.025,f'bbhof-ballot-metrics.streamlit.app\nLast Updated: {update_text}',fontsize=10,color=pl_line_color,ha='center',va='center')
     
     fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics{staff_text}",fontsize=20,color=pl_highlight)
