@@ -196,6 +196,9 @@ def load_pl_data(tracker_years=tracker_years):
 if 'year' not in ss:
     ss['year'] = year_max
 
+def population_change():
+    del ss['voter']
+
 with st.sidebar:
     pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
     with col1:
@@ -203,7 +206,8 @@ with st.sidebar:
     if ss['year']==2026:
         pl_tracker_years = load_pl_data()
         pl_staff = st.checkbox("PL Staff?",value=False,
-                               help="Analyze Pitcher List staff ballots")
+                               help="Analyze Pitcher List staff ballots",
+                               on_change=population_change)
     if pl_staff:
         if 'voter' not in ss:
             ss['voter'] = pl_tracker_years['Voter'].sample(1).item()
