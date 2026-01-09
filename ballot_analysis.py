@@ -24,7 +24,10 @@ pd.set_option('future.no_silent_downcasting', True)
 
 new_title = '<p style="color:#72CBFD; font-weight: bold; font-size: 30px; text-align:center;">Baseball Hall of Fame Ballot Analysis</p>'
 st.markdown(new_title, unsafe_allow_html=True)
-st.write('To change voters/years, tap the >> in the upper left of the page')
+
+filter_text = '<p style="text-align:center;">To change voters/years, tap the >> in the upper left of the page</p>'
+st.markdown(filter_text, unsafe_allow_html=True)
+# st.write('To change voters/years, tap the >> in the upper left of the page')
 
 def load_logo():
     logo_loc = 'https://github.com/Blandalytics/PLV_viz/blob/main/data/PL-text-wht.png?raw=true'
