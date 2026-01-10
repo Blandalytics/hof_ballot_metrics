@@ -259,7 +259,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
                 ax=ax1,
                 legend=False)
     ax1.axvline(0,color=pl_line_color)
-    ax1.axhline(-0.7,color=pl_line_color,linewidth=2)
+    ax1.axhline(-0.7,color=pl_line_color,xmin=1/4,xmax=3/4,linewidth=2)
     player_votes = voter_df['Total Votes'].item()
     ax1.text(2,-1,f'Voted For ({player_votes:.0f})',ha='right',color=pl_line_color)
     ax1.text(-2,-1,'Did Not Vote For',ha='left',color=pl_line_color)
