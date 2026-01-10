@@ -271,6 +271,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
                  va='center',
                  ha='left' if vaa >=0 else 'right',
                  color='w')
+    ax1.xaxis.set_visible(False)
     ax1.yaxis.set_visible(False)
     ax1.set_xticks([-1,-0.5,0,0.5,1])
     ax1.set(xlabel='',
