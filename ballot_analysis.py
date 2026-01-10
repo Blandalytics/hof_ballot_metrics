@@ -270,7 +270,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
                  player.get_text()+f' ({vaa:+.2f})' if vaa >=0 else f'({vaa:+.2f}) '+player.get_text(),
                  va='center',
                  ha='left' if vaa >=0 else 'right',
-                 fontsize=11,
+                 fontsize=13,
                  color='w')
     ax1.xaxis.set_visible(False)
     ax1.yaxis.set_visible(False)
