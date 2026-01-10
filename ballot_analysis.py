@@ -278,7 +278,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
     ax1.set(xlabel='',
            xlim=(-2,2),
            ylabel='')
-    ax1.set_title("Votes Above Average",color=pl_text,fontsize=16,y=1.01)
+    ax1.set_title("Votes Above Average",color=pl_text,fontsize=18,y=1.01)
     
     x_adjust = 115
     
@@ -296,7 +296,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
     ax2.set_xticks([x*20 for x in range(6)])
     ax2.set(xlim=(-0.5,x_adjust),
            xlabel='')
-    ax2.set_title(f'Vote Stinginess: {stingy_val:.0f}',color=pl_text,fontsize=16,x=50/x_adjust,y=1.01)
+    ax2.set_title(f'Vote Stinginess: {stingy_val:.0f}',color=pl_text,fontsize=18,x=50/x_adjust,y=1.01)
     sns.despine(left=True)
     
     ax3 = plt.subplot(grid[1, 1])
@@ -313,7 +313,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
     ax3.set_xticks([x*20 for x in range(6)])
     ax3.set(xlim=(-0.5,x_adjust),
            xlabel='')
-    ax3.set_title(f'Vote Orthodoxy: {orth_val:.0f}',color=pl_text,fontsize=16,x=50/x_adjust,y=1.01)
+    ax3.set_title(f'Vote Orthodoxy: {orth_val:.0f}',color=pl_text,fontsize=18,x=50/x_adjust,y=1.01)
     
     ax4 = plt.subplot(grid[2, 1])
     sns.kdeplot(tracker_years['vote_orthodoxy_cohort'],
@@ -329,7 +329,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
     ax4.set_xticks([x*20 for x in range(6)])
     ax4.set(xlim=(-0.5,x_adjust),
            xlabel='')
-    ax4.set_title(f'Vote Orthodoxy (Adjusted): {orth_adj_val:.0f}'.replace('nan','None'),color=pl_text,fontsize=16,x=50/x_adjust,y=1.01)
+    ax4.set_title(f'Vote Orthodoxy (Adjusted): {orth_adj_val:.0f}'.replace('nan','None'),color=pl_text,fontsize=18,x=50/x_adjust,y=1.01)
     
     # Add PL logo
     pl_ax = fig.add_axes([0.4,-.1,0.2,0.2], anchor='SE', zorder=1)
@@ -340,7 +340,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
     fig.text(0.8,-0.025,f'Data: Ryan Thibodaux{carson_text}\nwww.tracker.fyi',fontsize=10,color=pl_line_color,ha='center',va='center')
     fig.text(0.25,-0.025,f'bbhof-ballot-metrics.streamlit.app\nLast Updated: {update_text}',fontsize=10,color=pl_line_color,ha='center',va='center')
     
-    fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics{staff_text}",fontsize=20,color=pl_highlight)
+    fig.suptitle(f"{voter}'s {year} HoF Ballot Metrics{staff_text}",fontsize=22,color=pl_highlight)
     sns.despine(left=True,bottom=True)
     grid.tight_layout(fig)
     st.pyplot(fig,width='content')
