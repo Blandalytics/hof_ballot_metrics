@@ -200,16 +200,17 @@ def population_change():
     del ss['voter']
 
 with st.sidebar:
-    # pad1, col1, pad2 = st.columns([0.3,0.4,0.3])
-    # with col1:
-    #     st.image(letter_logo)
-    if ss['year']==2026:
-        pl_tracker_years = load_pl_data()
-        pl_staff = st.checkbox("PL Staff?",value=False,
-                               help="Analyze Pitcher List staff ballots",
-                               on_change=population_change)
-    else:
-        pl_staff = False
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image(letter_logo)
+    with col2:
+        if ss['year']==2026:
+            pl_tracker_years = load_pl_data()
+            pl_staff = st.checkbox("PL Staff?",value=False,
+                                   help="Analyze Pitcher List staff ballots",
+                                   on_change=population_change)
+        else:
+            pl_staff = False
     if pl_staff:
         if 'voter' not in ss:
             ss['voter'] = pl_tracker_years['Voter'].sample(1).item()
