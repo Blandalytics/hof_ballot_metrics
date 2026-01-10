@@ -244,7 +244,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
     chart_df = voter_df[voter_votes + big_misses + unanimous_players].T.reset_index().assign(Player = lambda x: x['index'].str[:-5]).rename(columns={0:'Votes Above Average'})
     fig = plt.figure(figsize=(12,8))
     # # Divide card into tiles
-    grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[2,1])
+    grid = plt.GridSpec(3, 2,hspace=5,wspace=0,width_ratios=[7,3])
     # fig, ax = plt.subplots(figsize=(8,6))
     ax1 = plt.subplot(grid[:, 0])
     hue_norm = colors.CenteredNorm(0,1)
@@ -270,7 +270,7 @@ def ballot_chart(voter, year,pl_staff=pl_staff):
                  player.get_text()+f' ({vaa:+.2f})' if vaa >=0 else f'({vaa:+.2f}) '+player.get_text(),
                  va='center',
                  ha='left' if vaa >=0 else 'right',
-                 fontsize=13,
+                 fontsize=14,
                  color='w')
     ax1.xaxis.set_visible(False)
     ax1.yaxis.set_visible(False)
