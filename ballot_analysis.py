@@ -200,7 +200,7 @@ def population_change():
     del ss['voter']
 
 with st.sidebar:
-    pad1, col1, pad2 = st.columns([0.2,0.6,0.2])
+    pad1, col1, pad2 = st.columns([0.3,0.4,0.3])
     with col1:
         st.image(letter_logo)
     if ss['year']==2026:
