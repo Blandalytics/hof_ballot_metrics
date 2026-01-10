@@ -200,7 +200,7 @@ def population_change():
     del ss['voter']
 
 with st.sidebar:
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([0.4,0.6])
     with col1:
         st.image(letter_logo)
     with col2:
