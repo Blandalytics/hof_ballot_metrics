@@ -197,7 +197,8 @@ if 'year' not in ss:
     ss['year'] = year_max
 
 def population_change():
-    del ss['voter']
+    if 'voter' in ss:
+        del ss['voter']
 
 with st.sidebar:
     col1, col2 = st.columns([0.4,0.6])
@@ -208,7 +209,7 @@ with st.sidebar:
             pl_tracker_years = load_pl_data()
             pl_staff = st.checkbox("PL Staff?",value=False,
                                    help="Analyze Pitcher List staff ballots",
-                                   on_change=population_change if 'voter' in ss else None)
+                                   on_change=population_change)
         else:
             pl_staff = False
     if pl_staff:
